@@ -1,5 +1,7 @@
+import { forwardRef } from "react";
+
 // since we have multiple elements with the same structure it is better to create a component Input.jsx
-export default function Input({ textarea, label, ...props }) {
+const Input =  forwardRef(function Input({ textarea, label, ...props }, ref) {
   const classes =
     "w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-200 text-stone-600 focus:outline-none focus:border-stone-600";
 
@@ -9,10 +11,12 @@ export default function Input({ textarea, label, ...props }) {
         {label}
       </label>
       {textarea ? (
-        <textarea className={classes} {...props} />
+        <textarea ref={ref} className={classes} {...props} />
       ) : (
-        <input className={classes} {...props} />
+        <input ref={ref} className={classes} {...props} />
       )}
     </p>
   );
-}
+});
+
+export default Input;

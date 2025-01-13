@@ -18,11 +18,26 @@ function App() {
       };
     });
   }
+  // repeat tomorrow by heart once again and try to understand the logic, additionally pass the function where it belongs and check later with the udemy video
+
+  function handleAddProject(projectData) {
+    const newProject = {
+      ...projectData,
+      id: Math.random(),
+    };
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+        projects: [prevState.projects, newProject],
+      };
+    });
+  }
 
   let content;
 
   if (projectsState.selectedProjectId === null) {
-    content = <NewProject />;
+    content = <NewProject onAdd={handleAddProject} />;
   } else if (projectsState.selectedProjectId === undefined) {
     content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
   }
@@ -30,7 +45,10 @@ function App() {
   return (
     <main className="gap-8 px-2 py-4 text-xs md: text-s h-screen my-8 flex flex-row">
       {/* once the onStartAddProject prop is passed to the components below, we have to destructure this prop inside components */}
-      <SideBar onStartAddProject={handleStartAddProject} />
+      <SideBar
+        onStartAddProject={handleStartAddProject}
+        projects={projectsState.projects}
+      />
       {content}
     </main>
   );
