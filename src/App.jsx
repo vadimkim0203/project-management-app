@@ -18,7 +18,6 @@ function App() {
       };
     });
   }
-  // repeat tomorrow by heart once again and try to understand the logic, additionally pass the function where it belongs and check later with the udemy video
 
   function handleAddProject(projectData) {
     const newProject = {
