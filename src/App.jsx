@@ -42,6 +42,15 @@ function App() {
     });
   }
 
+  function handleSelectProject(id) {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: id,
+      };
+    });
+  }
+
   let content;
 
   if (projectsState.selectedProjectId === null) {
@@ -58,6 +67,7 @@ function App() {
       <SideBar
         onStartAddProject={handleStartAddProject}
         projects={projectsState.projects}
+        onSelectProject={handleSelectProject}
       />
       {content}
     </main>
