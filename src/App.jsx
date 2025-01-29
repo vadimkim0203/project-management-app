@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SideBar from "./SideBar.jsx";
 import NewProject from "./NewProject.jsx";
 import NoProjectSelected from "./NoProjectSelected.jsx";
+import SelectedProject from "./SelectedProject.jsx";
 
 function App() {
   const [projectsState, setProjectsState] = useState({
@@ -50,8 +51,12 @@ function App() {
       };
     });
   }
+        
+  const selectedProject = projectsState.projects.find(
+    project => project.id === projectsState.selectedProjectId
+  )
 
-  let content;
+  let content = <SelectedProject project={selectedProject}/>;
 
   if (projectsState.selectedProjectId === null) {
     content = (
