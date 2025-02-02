@@ -34,11 +34,12 @@ function App() {
       ...projectData,
       id: Math.random(),
     };
+    
     setProjectsState((prevState) => {
       return {
         ...prevState,
         selectedProjectId: undefined,
-        projects: [prevState.projects, newProject],
+        projects: [...prevState.projects, newProject],
       };
     });
   }
