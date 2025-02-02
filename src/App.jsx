@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import SideBar from "./SideBar.jsx";
-import NewProject from "./NewProject.jsx";
-import NoProjectSelected from "./NoProjectSelected.jsx";
-import SelectedProject from "./SelectedProject.jsx";
+import SideBar from "./components/SideBar.jsx";
+import NewProject from "./components/NewProject.jsx";
+import NoProjectSelected from "./components/NoProjectSelected.jsx";
+import SelectedProject from "./components/SelectedProject.jsx";
 
 function App() {
   const [projectsState, setProjectsState] = useState({
@@ -34,7 +34,7 @@ function App() {
       ...projectData,
       id: Math.random(),
     };
-    
+
     setProjectsState((prevState) => {
       return {
         ...prevState,
@@ -52,12 +52,24 @@ function App() {
       };
     });
   }
-        
-  const selectedProject = projectsState.projects.find(
-    project => project.id === projectsState.selectedProjectId
-  )
 
-  let content = <SelectedProject project={selectedProject}/>;
+  function handleDeleteProject() {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+        projects: prevState.projects.filter(
+          (project) => project.id !== prevState.selectedProjectId
+        ),
+      };
+    });
+  }
+
+  const selectedProject = projectsState.projects.find(
+    (project) => project.id === projectsState.selectedProjectId
+  );
+
+  let content = <SelectedProject project={selectedProject} onDelete={handleDeleteProject}/>;
 
   if (projectsState.selectedProjectId === null) {
     content = (
