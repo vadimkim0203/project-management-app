@@ -8,7 +8,31 @@ function App() {
   const [projectsState, setProjectsState] = useState({
     selectedProjectId: undefined,
     projects: [],
+    tasks: [],
   });
+
+  function handleAddTask(text) {
+   
+    setProjectsState((prevState) => {
+      
+        taskId: Math.random(),
+        const newTask = {
+          text: text,
+          projectId: prevState.selectedProjectId,
+          id: taskId,
+      };
+
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+        tasks: [...prevState.tasks, newTask], 
+      }
+    });
+    
+    
+  };
+
+  function handleDeleteTask() {};
 
   // function below is updating the rendered component based on the previous state. Initially selectedProjectId is undefined because we havent' clicked the button, but once the button is clicked the state is converting to null, which is the newly made project
   function handleStartAddProject() {
@@ -69,7 +93,7 @@ function App() {
     (project) => project.id === projectsState.selectedProjectId
   );
 
-  let content = <SelectedProject project={selectedProject} onDelete={handleDeleteProject}/>;
+  let content = <SelectedProject project={selectedProject} onDelete={handleDeleteProject} onAddTask={handleAddTask} onDeleteTask={handleDeleteTask} tasks={projectState.tasks}/>;
 
   if (projectsState.selectedProjectId === null) {
     content = (
